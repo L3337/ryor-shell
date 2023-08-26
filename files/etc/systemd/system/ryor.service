@@ -1,0 +1,15 @@
+[Unit]
+Description=Advanced networking shenanigans
+After=network-pre.target
+Before=dnsmasq.service
+
+[Service]
+ExecStart=/bin/sh /usr/local/bin/create-network.sh
+ExecStop=/bin/sh /usr/local/bin/destroy-network.sh
+User=root
+Group=root
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

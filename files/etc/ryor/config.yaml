@@ -1,0 +1,16 @@
+cpu_freq: "1.7GHz"
+wan_iface: enp6s0
+lan_iface:
+  - enp1s0f0
+  - enp1s0f1
+  - enp1s0f2
+  - enp1s0f3
+wireless:
+  ap_iface: wlp4s0
+  all_iface:
+    - wlp4s0
+    - wlan1a
+    - wlan1b
+    - wlan1c
+  start_time: '0800'
+  end_time: '2255'

@@ -1,0 +1,14 @@
+[Unit]
+Description=DNS caching server.
+After=network.target
+Requires=ryor.service
+After=ryor.service
+
+[Service]
+ExecStart=/usr/sbin/dnsmasq
+Type=forking
+PIDFile=/run/dnsmasq.pid
+ExecStartPre=/bin/sleep 6
+
+[Install]
+WantedBy=multi-user.target

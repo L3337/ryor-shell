@@ -1,0 +1,14 @@
+[Unit]
+Description=Advanced wireless networking shenanigans
+After=hostapd.service dnsmasq.service
+
+[Service]
+ExecStart=/bin/sh /usr/local/bin/create-wifi.sh
+User=root
+Group=root
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+

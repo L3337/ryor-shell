@@ -1,0 +1,11 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+MAILTO=root
+# Turn wifi on in the morning
+00 08 * * * root wifi.sh start 1200
+# Turn wifi off at night
+00 23 * * * root wifi.sh stop 1200
+# Change the mac address of the wireless access point
+30 23 * * * root change-wifi-mac.sh
+# Install software updates if not disabled, reboot the router
+00 04 * * 3 root ryor-update.sh run
