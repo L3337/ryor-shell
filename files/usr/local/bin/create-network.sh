@@ -47,24 +47,13 @@ if [ ! -z "$CPU_FREQ" ]; then
 fi
 
 ip link add name br0 type bridge
-
-ip link set dev enp1s0f0 master br0
-ip link set dev enp1s0f1 master br0
-ip link set dev enp1s0f2 master br0
-ip link set dev enp1s0f3 master br0
-
-bridge link set dev enp1s0f0 isolated on
-bridge link set dev enp1s0f1 isolated on
-bridge link set dev enp1s0f2 isolated on
-bridge link set dev enp1s0f3 isolated on
-
-
-ip addr add 192.168.10.1/24 dev br0
+ip addr add 192.168.2.1/24 dev br0
 ip link set dev br0 up
 firewall-cmd --zone=00-trusted --change-interface=br0
 
 for iface in $LAN_IFACE; do
     #sysctl -w net.ipv6.conf.${iface}.disable_ipv6=1
+    ip link set dev $iface master br0
     ip link set $iface up
     firewall-cmd --zone=00-trusted --change-interface=${iface}
 done
