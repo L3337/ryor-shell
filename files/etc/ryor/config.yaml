@@ -1,16 +1,28 @@
+# The CPU frequency to lock your CPU to.  The CPU must support running at the
+# frequency here, or this will have no effect.  It is best to lock the CPU
+# to a lower frequency to save power, while not letting the CPU cores go to
+# sleep to improve latency
 cpu_freq: "1.7GHz"
+# The network interface that plugs into your modem.  The network the modem
+# connects to should support DHCP, but it can be any type of modem
 wan_iface: enp6s0
+# Interfaces used for wired networking internal to the network
 lan_iface:
   - enp1s0f0
   - enp1s0f1
   - enp1s0f2
   - enp1s0f3
 wireless:
+  # The wireless card to be used as an access point for devices to connect to
+  # the network
   ap_iface: wlp4s0
+  # All wireless interfaces, including virtual interfaces created by hostapd
   all_iface:
     - wlp4s0
     - wlan1a
     - wlan1b
     - wlan1c
+  # The time in the morning to enable the wireless radio
   start_time: '0800'
+  # The time at night to disable the wireless radio
   end_time: '2255'

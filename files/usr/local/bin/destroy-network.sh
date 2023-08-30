@@ -5,16 +5,37 @@
 #	exit 1
 #fi
 
-ip link set dev enp1s0f0 nomaster
-ip link set dev enp1s0f1 nomaster
-ip link set dev enp1s0f2 nomaster
-ip link set dev enp1s0f3 nomaster
+export CONFIG=${CONFIG:-/etc/ryor/config.yaml}
 
-ip link set dev wlp4s0 nomaster || true
-ip link set dev wlan1a nomaster || true
-ip link set dev wlan1b nomaster || true
+if [ ! -e "$CONFIG" ]; then
+	echo "$CONFIG does not exist, cannot unload network"
+	exit 1
+fi
+
+LAN_IFACE=$(python3 - << EOF
+import os
+import yaml
+with open(os.environ['CONFIG']) as f:
+    config = yaml.safe_load(f)
+print('\n'.join(config['lan_iface']))
+EOF
+)
+WIRELESS_IFACE=$(python3 - << EOF
+import os
+import yaml
+with open(os.environ['CONFIG']) as f:
+    config = yaml.safe_load(f)
+print('\n'.join(config['wireless']['all_iface']))
+EOF
+)
+
+for iface in $LAN_IFACE; do
+    ip link set dev $iface nomaster
+done
+
+for iface in $WIRELESS_IFACE; do
+    ip link set dev $iface nomaster || true
+done
 
 ip link del br0
-
-#/bin/sh -c 'nft flush table nat || true'
 

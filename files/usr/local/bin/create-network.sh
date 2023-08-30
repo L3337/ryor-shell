@@ -12,6 +12,8 @@ if [ ! -e "$CONFIG" ]; then
 	exit 1
 fi
 
+# Read config values
+
 WAN_IFACE=$(python3 - << EOF
 import os
 import yaml
@@ -38,14 +40,17 @@ print(config.get('cpu_freq', ''))
 EOF
 )
 
-
+# Disable IPv6
 sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1
 
+# Lock the CPU to a fixed frequency if configured to do so
 if [ ! -z "$CPU_FREQ" ]; then
     cpupower frequency-set --freq "$CPU_FREQ"
 fi
 
+# Create the Linux bridge that will act as a switch between LAN ports and
+# wireless access points
 ip link add name br0 type bridge
 ip addr add 192.168.2.1/24 dev br0
 ip link set dev br0 up
@@ -61,6 +66,7 @@ done
 firewall-cmd --zone=50-internet --change-interface=$WAN_IFACE
 #sysctl -w net.ipv6.conf.$WAN_IFACE.disable_ipv6=0
 
+# Enable writing to the DNS config
 chattr -i /etc/resolv.conf
 
 dhclient $WAN_IFACE

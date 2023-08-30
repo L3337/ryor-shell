@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export CONFIG=${CONFIG:-/etc/ryor/config.yaml}
 WAN_IFACE=$(python3 - << EOF
 import os
 import yaml
@@ -9,4 +10,4 @@ print(config['wan_iface'])
 EOF
 )
 
-ip addr show dev enp6s0
+ip addr show dev $WAN_IFACE

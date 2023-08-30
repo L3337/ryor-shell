@@ -55,6 +55,7 @@ move all of your devices over to the new router
 - Update `files/etc/ryor/config.yaml` to match your hardware specs
 - Update all of the config files in `files/etc`, or some can be deleted as
   desired from `tools/rpm.spec`
+  - You may also need to modify some scripts such as `create-network.sh`
 - Run `tools/el9-deps.sh` to install required dependencies
 - Run `make rpm` to build the RPM, which can be installed with
   `sudo dnf install ./$PACKAGE_NAME`, or
