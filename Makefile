@@ -1,8 +1,7 @@
-ORG ?= $(shell jq -r .org meta.json)
+ORG     ?= $(shell jq -r .org meta.json)
 PRODUCT ?= $(shell jq -r .product meta.json)
-VERSION ?= 0.0.1
+VERSION ?= $(shell jq -r .version meta.json)
 DESTDIR ?=
-PREFIX ?= /usr
 
 clean:
 	# Remove temporary build files

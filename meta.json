@@ -11,5 +11,6 @@
         "cli": "ryor CLI"
     },
     "org": "ryor",
-    "product": "ryor"
+    "product": "ryor",
+    "version": "0.0.1"
 }
