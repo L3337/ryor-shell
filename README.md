@@ -49,7 +49,8 @@ it will likely render your networking inoperable, and not easy to repair.
 
 NOTE: When bootstrapping a new router for the first time, it is far easier to
 plug it into an existing router operating in a different subnet, and slowly
-move all of your devices over to the new router
+move all of your devices over to the new router, before eventually plugging
+the new router directly into the modem (not applicable to all types of ISPs).
 
 - Clone the git repository and `cd` into the directory.
 - Update `files/etc/ryor/config.yaml` to match your hardware specs
@@ -63,15 +64,16 @@ move all of your devices over to the new router
 - Reboot
 - Check the logs, `journalctl` and `systemctl status` for any failures
 
-# Default Features
-- dnsmasq to cache DNS records for the entire network, and DHCP
+# Out of the Box Features
 - wired networking
-- Wifi networking using hostapd, with radio scheduling to disable while
+- wifi networking using hostapd, with radio scheduling to disable while
   you sleep and mac address randomization
-- firewalld firewalling
+- LAN switching using Linux bridge
+- firewalld firewalling and port forwarding
+- dnsmasq for DNS caching and DHCP
 - sysctl settings to ensure the router will reboot on kernel panic or other
-  kernel issues
-- Automatic system updates and reboot once a week
+  kernel and hardware issues
+- Automatic system updates and reboots
 - systemd service management for the network configuration and all services
 
 ## Tooling
