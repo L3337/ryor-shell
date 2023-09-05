@@ -85,7 +85,7 @@ chattr +i /etc/resolv.conf
 # Force DNS redirection to dnsmasq
 firewall-cmd \
     --zone=00-trusted \
-    --add-forward-port=port=53:proto=udp:toport=53:toaddr=192.168.10.1
+    --add-forward-port=port=53:proto=udp:toport=53:toaddr=192.168.2.1
 
 # In case it is in a blocked state from something else
 rfkill unblock wlan
