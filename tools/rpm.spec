@@ -99,6 +99,8 @@ firewall-cmd --delete-policy=router-ingress --permanent || true
 firewall-cmd --delete-zone=00-trusted --permanent || true
 firewall-cmd --delete-zone=50-internet --permanent || true
 
+hostnamectl hostname rollyourownrouter
+
 %postun
 dconf update
 
@@ -114,6 +116,7 @@ systemctl daemon-reload
 /etc/dconf/db/gdm.d/01-local-power
 /etc/dconf/profile/gdm
 /etc/dnsmasq.d/01-ryor.conf
+/etc/profile.d/custom-shell-prompt.sh
 /etc/ryor
 /etc/sysctl.d/99-ryor.conf
 /etc/systemd/system/dnsmasq.service
